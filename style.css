@@ -72,3 +72,10 @@ button:hover {
   cursor: pointer;
   transition: transform 1s ease;
 }
+  .contador {
+  margin-top: 20px;
+  font-size: 16px;
+  color: #a67c73;
+}
+
+}
