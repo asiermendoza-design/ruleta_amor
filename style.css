@@ -1,61 +1,149 @@
+/* --- GENERAL --- */
 body {
   margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background-color: #fff0f5;
-  color: #a67c73;
+  font-family: 'Georgia', serif;
+  background-color: #ffffff;
+  color: #000;
+  text-align: center;
+  transition: all 1s ease;
+}
+
+/* --- PORTADA --- */
+#portada {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
-  text-align: center;
+  height: 100vh;
+  background: linear-gradient(120deg, #fddde6, #f8c6d0);
+  transition: opacity 1.5s ease;
 }
 
-section {
+#portada img {
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+#portada h1 {
+  font-size: 3em;
+  margin: 20px 0;
+  color: #fff;
+}
+
+#portada button {
+  font-size: 1.5em;
+  padding: 15px 35px;
+  border-radius: 50px;
+  border: none;
+  background: #fff;
+  color: #f8c6d0;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  transition: transform 0.2s, background-color 0.3s;
+}
+
+#portada button:hover {
+  transform: scale(1.05);
+}
+
+/* --- SECCIÓN JUEGO --- */
+#juego {
   display: none;
   padding: 20px;
 }
 
-section.activo {
-  display: block;
+/* Texto de explicación */
+#texto-explicacion {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 1.8em;
+  line-height: 1.5;
+  margin: 20px auto;
+  max-width: 800px;
+  opacity: 0;
+  transition: opacity 2s ease;
 }
 
+/* Botón iniciar juego */
 #btn-jugar {
-  margin-top: 20px;
-  padding: 10px 20px;
-  font-size: 18px;
-  background-color: #f7c6c7;
+  font-size: 1.8em;
+  padding: 15px 35px;
+  border-radius: 50px;
   border: none;
-  border-radius: 10px;
-  cursor: pointer;
+  background: #f8c6d0;
   color: white;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: transform 0.2s;
 }
 
 #btn-jugar:hover {
-  background-color: #e89fa6;
+  transform: scale(1.05);
 }
 
+/* --- CALENDARIO --- */
+#mes {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+  margin-top: 20px;
+  max-width: 700px;
+}
+
+.dia {
+  padding: 15px;
+  border-radius: 10px;
+  background: rgba(248,198,208,0.4);
+  font-weight: bold;
+  min-height: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.3s;
+}
+
+.dia.finde {
+  background: rgba(255,182,193,0.5);
+}
+
+.dia:hover {
+  transform: scale(1.05);
+}
+
+/* --- RULETA --- */
 .circulo {
   margin: 30px auto;
-  width: 150px;
-  height: 150px;
-  background-color: #f7c6c7;
+  width: 180px;
+  height: 180px;
+  background: conic-gradient(#f8c6d0, #fbb6c2, #f8c6d0, #fbb6c2);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 50px;
+  font-size: 60px;
   cursor: pointer;
-  transition: transform 1s ease-out;
+  transition: transform 2s ease-out;
+  box-shadow: 0 0 20px rgba(255,0,128,0.5);
 }
 
-#resultado {
+/* --- PLANES --- */
+.plan {
+  background-color: rgba(248,198,208,0.9);
+  border-radius: 20px;
+  padding: 20px;
   margin-top: 20px;
-  font-size: 18px;
+  font-size: 1.2em;
+  white-space: pre-line;
+  max-width: 350px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  opacity: 0;
+  transition: opacity 1.5s ease;
 }
 
-#contador {
-  margin-top: 15px;
-  font-size: 16px;
+.plan.mostrar {
+  opacity: 1;
 }
 
