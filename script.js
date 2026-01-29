@@ -41,67 +41,60 @@ function mostrar(id) {
 
 /* RULETA */
 const planes = [
-  "☕ Café en Toma Café
-
+  `☕ Café en Toma Café
 📚 Librería Tipos Infames o La Central
-
 🎭 Teatro pequeño o microteatro
+🍝 Cena italiana en Trattoria Malatesta`,
 
-🍝 Cena italiana en Trattoria Malatesta",
-  "🛍️ Paseo por el centro comercial
-
+  `🛍️ Paseo por el centro comercial
 🍽️ Comer allí
-
 🍿 Cine con palomitas
+🏠 Vuelta tranquila a casa`,
 
-🏠 Vuelta tranquila a casa",
-  "🚗 Ruta a un pueblo cercano
-
+  `🚗 Ruta a un pueblo cercano
 🍽️ Comida en restaurante del pueblo
-
 🌿 Paseo / ruta corta
+🛋️ Cena en casa, manta y peli`,
 
-🛋️ Cena en casa, manta y peli",
-  "☕ Desayuno en Federal Café o HanSo Café
-
+  `☕ Desayuno en Federal Café o HanSo Café
 🚶‍♀️ Paseo sin rumbo por Barrio de las Letras
-
 🖼️ Museo Thyssen (una sala solo, sin prisas)
+🍷 Cena tranquila en La Fisna (vinos y platos para compartir) 📵`,
 
-🍷 Cena tranquila en La Fisna (vinos y platos para compartir) 📵",
-  "🍳 Brunch en Carmencita Bar
-
+  `🍳 Brunch en Carmencita Bar
 🏙️ Mirador del Círculo de Bellas Artes
-
 📸 Fotos juntos por Gran Vía
+🍽️ Cena en Azotea del Círculo o Picalagartos`,
 
-🍽️ Cena en Azotea del Círculo o Picalagartos",
-  "🍰 Merienda en La Duquesita
-
+  `🍰 Merienda en La Duquesita
 🎨 Taller creativo (cerámica, pintura, velas)
 (Muchos en Malasaña o Lavapiés)
-
 🍔 Cena informal en Goiko / Mad Mad Vegan
+🎶 Copa tranquila después`,
 
-🎶 Copa tranquila después"
-  "🚗 Viaje y llegada a la casa rural
-
+  `🚗 Viaje y llegada a la casa rural
 🍷 Cena y noche tranquila
-
 🌿 Día de naturaleza y descanso
-
-☕ Desayuno sin prisas y vuelta"
+☕ Desayuno sin prisas y vuelta`
 ];
 
 const UNA_SEMANA = 7 * 24 * 60 * 60 * 1000;
+let intervaloContador = null;
+
+/* CUANDO CARGA LA PÁGINA */
+window.onload = () => {
+  const ultimoGiro = localStorage.getItem("ultimoGiro");
+  if (ultimoGiro) {
+    iniciarContador(ultimoGiro);
+  }
+};
 
 function girar() {
-  const ultimo = localStorage.getItem("ultimoGiro");
   const ahora = Date.now();
+  const ultimoGiro = localStorage.getItem("ultimoGiro");
 
-  if (ultimo && ahora - ultimo < UNA_SEMANA) {
-    mostrarContador(UNA_SEMANA - (ahora - ultimo));
-    return;
+  if (ultimoGiro && ahora - ultimoGiro < UNA_SEMANA) {
+    return; // bloqueado, el contador ya informa
   }
 
   const ruleta = document.querySelector(".circulo");
@@ -110,28 +103,39 @@ function girar() {
   setTimeout(() => {
     const plan = planes[Math.floor(Math.random() * planes.length)];
     document.getElementById("resultado").textContent = plan;
+
     localStorage.setItem("ultimoGiro", ahora);
     ruleta.style.transform = "rotate(0deg)";
-    mostrarContador(UNA_SEMANA);
+
+    iniciarContador(ahora);
   }, 1000);
 }
 
-function mostrarContador(t) {
-  const c = document.getElementById("contador");
+function iniciarContador(timestampInicio) {
+  const contador = document.getElementById("contador");
 
-  const i = setInterval(() => {
-    t -= 1000;
-    if (t <= 0) {
-      c.textContent = "💖 Ya puedes girar de nuevo";
-      clearInterval(i);
+  if (intervaloContador) {
+    clearInterval(intervaloContador);
+  }
+
+  intervaloContador = setInterval(() => {
+    const ahora = Date.now();
+    const restante = UNA_SEMANA - (ahora - timestampInicio);
+
+    if (restante <= 0) {
+      contador.textContent = "💖 La ruleta vuelve a estar lista para nosotros";
+      clearInterval(intervaloContador);
+      localStorage.removeItem("ultimoGiro");
       return;
     }
 
-    const d = Math.floor(t / (1000*60*60*24));
-    const h = Math.floor((t / (1000*60*60)) % 24);
-    const m = Math.floor((t / (1000*60)) % 60);
+    const dias = Math.floor(restante / (1000 * 60 * 60 * 24));
+    const horas = Math.floor((restante / (1000 * 60 * 60)) % 24);
+    const minutos = Math.floor((restante / (1000 * 60)) % 60);
+    const segundos = Math.floor((restante / 1000) % 60);
 
-    c.textContent = `⏳ Próximo giro en ${d}d ${h}h ${m}m`;
+    contador.textContent =
+      `⏳ Próximo giro en ${dias}d ${horas}h ${minutos}m ${segundos}s`;
   }, 1000);
 }
 
