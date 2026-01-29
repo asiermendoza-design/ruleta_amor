@@ -1,18 +1,31 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ruleta Romántica</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
+<!-- PORTADA -->
+<section id="portada" class="activo">
+  <div id="foto-portada">
+    <!-- Puedes poner tu foto aquí -->
+    <img src="IMG_2662.jpg" alt="Nuestra foto" />
+  </div>
+  <h1>Te propongo un juego</h1>
+  <button id="btn-empezar">¿Quieres jugar?</button>
+</section>
 
-  <!-- TEXTO INICIAL -->
-  <section id="intro" class="activo">
-    <p id="texto"></p>
-    <button id="btn-jugar" onclick="iniciarJuego()">¡Jugar!</button>
-  </sec
+<!-- JUEGO / CALENDARIO -->
+<section id="juego">
+  <header style="background-color:#f8c6d0; padding:15px; border-radius:10px; color:white;">
+    <h1>📅 Febrero 2026</h1>
+  </header>
 
+  <div id="texto-explicacion"></div>
+  <button id="btn-jugar" style="display:none;">Comenzar</button>
+
+  <div id="mes"></div>
+
+  <h2>Ruleta del fin de semana</h2>
+  <div class="circulo" onclick="girar()">♡</div>
+  <div id="resultado" class="plan"></div>
+
+  <footer style="background-color:#f8c6d0; padding:15px; margin-top:20px; border-radius:10px; color:white;">
+    <p>Mes de San Valentín 2026</p>
+  </footer>
+</section>
 
 
