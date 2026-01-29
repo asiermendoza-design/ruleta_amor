@@ -1,127 +1,115 @@
-// 1️⃣ TEXTO INICIAL
-const mensaje = 
-"Esto no es un juego cualquiera.\n\n" +
-"Es una excusa para parar el tiempo,\n" +
-"para elegirnos una vez más,\n" +
-"para recordar que, incluso en la rutina,\n" +
-"siempre podemos sorprendernos.\n\n" +
-"Cada semana, la ruleta decidirá.\n" +
-"Pero lo importante no es el plan,\n" +
-"sino que sea contigo.";
+// ------------------- PORTADA -------------------
+const btnEmpezar = document.getElementById("btn-empezar");
+const portada = document.getElementById("portada");
+const juego = document.getElementById("juego");
 
-let i = 0;
-const texto = document.getElementById("texto");
-const boton = document.getElementById("btn-jugar");
+btnEmpezar.addEventListener("click", () => {
+  portada.style.opacity = "0";
+  setTimeout(() => {
+    portada.style.display = "none";
+    juego.style.display = "block";
+    // Mostrar texto de explicación
+    iniciarExplicacion();
+  }, 1500);
+});
 
-function escribir() {
-  if (i < mensaje.length) {
-    texto.textContent += mensaje.charAt(i);
-    i++;
-    setTimeout(escribir, 50);
-  } else {
-    boton.style.display = "inline-block";
+// ------------------- TEXTO DE EXPLICACIÓN -------------------
+const textoExplicacion = document.getElementById("texto-explicacion");
+const btnJugar = document.getElementById("btn-jugar");
+
+function iniciarExplicacion() {
+  const mensaje = "Este año vamos a disfrutar todo el mes de febrero juntos. Cada fin de semana elegiremos un plan especial con la ruleta para vivir momentos únicos y memorables.";
+  let i = 0;
+
+  function escribir() {
+    if (i < mensaje.length) {
+      textoExplicacion.textContent += mensaje.charAt(i);
+      i++;
+      textoExplicacion.style.opacity = "1";
+      setTimeout(escribir, 50); // transición más lenta
+    } else {
+      btnJugar.style.display = "inline-block";
+    }
+  }
+
+  escribir();
+}
+
+// ------------------- INICIAR JUEGO -------------------
+btnJugar.addEventListener("click", () => {
+  generarCalendario();
+});
+
+// ------------------- PLANES -------------------
+const planes = [
+  "Café romántico por la mañana",
+  "Paseo por librerías y chocolate caliente",
+  "Microteatro para dos",
+  "Cena italiana en casa",
+  "Paseo por la naturaleza",
+  "Noche de vinos y música",
+  "Sesión de fotos divertida"
+];
+
+// ------------------- FUNCION CALENDARIO -------------------
+function generarCalendario() {
+  const mesDiv = document.getElementById("mes");
+  mesDiv.innerHTML = "";
+
+  const febrero = 1; // febrero
+  const año = 2026;
+
+  const primerDia = new Date(año, febrero-1, 1).getDay();
+  const diasFebrero = 28;
+
+  for(let i=0;i<primerDia;i++){
+    const vacio = document.createElement("div");
+    mesDiv.appendChild(vacio);
+  }
+
+  for(let dia=1; dia<=diasFebrero; dia++){
+    const div = document.createElement("div");
+    div.classList.add("dia");
+
+    const fecha = new Date(año,febrero-1,dia);
+    if(fecha.getDay()===6 || fecha.getDay()===0){
+      div.classList.add("finde");
+      div.textContent = dia;
+      div.dataset.plan = ""; 
+    } else {
+      div.textContent = dia;
+    }
+
+    mesDiv.appendChild(div);
   }
 }
 
-escribir();
-
-// 2️⃣ INICIAR JUEGO
-function iniciarJuego() {
-  document.getElementById("intro").classList.remove("activo");
-  document.getElementById("ruleta").classList.add("activo");
-}
-
-// 3️⃣ PLANES DE LA RULETA
-const planes = [
-  `☕ Café en Toma Café
-📚 Librería Tipos Infames o La Central
-🎭 Teatro pequeño o microteatro
-🍝 Cena italiana en Trattoria Malatesta`,
-
-  `🛍️ Paseo por el centro comercial
-🍽️ Comer allí
-🍿 Cine con palomitas
-🏠 Vuelta tranquila a casa`,
-
-  `🚗 Ruta a un pueblo cercano
-🍽️ Comida en restaurante del pueblo
-🌿 Paseo / ruta corta
-🛋️ Cena en casa, manta y peli`,
-
-  `☕ Desayuno en Federal Café o HanSo Café
-🚶‍♀️ Paseo sin rumbo por Barrio de las Letras
-🖼️ Museo Thyssen (una sala solo, sin prisas)
-🍷 Cena tranquila en La Fisna 📵`,
-
-  `🍳 Brunch en Carmencita Bar
-🏙️ Mirador del Círculo de Bellas Artes
-📸 Fotos juntos por Gran Vía
-🍽️ Cena en Azotea del Círculo o Picalagartos`,
-
-  `🍰 Merienda en La Duquesita
-🎨 Taller creativo (cerámica, pintura, velas)
-(Muchos en Malasaña o Lavapiés)
-🍔 Cena informal en Goiko / Mad Mad Vegan
-🎶 Copa tranquila después`,
-
-  `🚗 Viaje y llegada a la casa rural
-🍷 Cena y noche tranquila
-🌿 Día de naturaleza y descanso
-☕ Desayuno sin prisas y vuelta`
-];
-
-// 4️⃣ CONTADOR SEMANAL
-const UNA_SEMANA = 7 * 24 * 60 * 60 * 1000;
-let intervaloContador = null;
-
-window.onload = () => {
-  const ultimoGiro = localStorage.getItem("ultimoGiro");
-  if (ultimoGiro) iniciarContador(ultimoGiro);
-};
-
+// ------------------- GIRO DE LA RULETA -------------------
 function girar() {
-  const ahora = Date.now();
-  const ultimoGiro = localStorage.getItem("ultimoGiro");
-
-  // Bloqueo si no ha pasado 1 semana
-  if (ultimoGiro && ahora - ultimoGiro < UNA_SEMANA) return;
-
   const ruleta = document.querySelector(".circulo");
-  ruleta.style.transform = "rotate(720deg)";
+  const resultado = document.getElementById("resultado");
+
+  const gradosExtra = Math.floor(Math.random()*720) + 720;
+  ruleta.style.transform = `rotate(${gradosExtra}deg)`;
 
   setTimeout(() => {
-    const plan = planes[Math.floor(Math.random() * planes.length)];
-    document.getElementById("resultado").textContent = plan;
+    const plan = planes[Math.floor(Math.random()*planes.length)];
+    resultado.textContent = plan;
+    resultado.classList.add("mostrar");
+    setTimeout(()=> resultado.classList.remove("mostrar"), 3000);
 
-    localStorage.setItem("ultimoGiro", ahora);
-    ruleta.style.transform = "rotate(0deg)";
-
-    iniciarContador(ahora);
-  }, 1000);
-}
-
-function iniciarContador(timestampInicio) {
-  const contador = document.getElementById("contador");
-  if (intervaloContador) clearInterval(intervaloContador);
-
-  intervaloContador = setInterval(() => {
-    const ahora = Date.now();
-    const restante = UNA_SEMANA - (ahora - timestampInicio);
-
-    if (restante <= 0) {
-      contador.textContent = "💖 La ruleta vuelve a estar lista para nosotros";
-      clearInterval(intervaloContador);
-      localStorage.removeItem("ultimoGiro");
-      return;
+    // Asignar plan al primer fin de semana sin plan
+    const dias = document.querySelectorAll(".dia.finde");
+    for(let dia of dias){
+      if(!dia.dataset.plan){
+        dia.dataset.plan = plan;
+        dia.textContent = `${dia.textContent}\n${plan}`;
+        break;
+      }
     }
 
-    const dias = Math.floor(restante / (1000 * 60 * 60 * 24));
-    const horas = Math.floor((restante / (1000 * 60 * 60)) % 24);
-    const minutos = Math.floor((restante / (1000 * 60)) % 60);
-    const segundos = Math.floor((restante / 1000) % 60);
-
-    contador.textContent =
-      `⏳ Próximo giro en ${dias}d ${horas}h ${minutos}m ${segundos}s`;
-  }, 1000);
+    ruleta.style.transform = "rotate(0deg)";
+  }, 2000);
 }
+
 
