@@ -29,10 +29,9 @@ escribir();
 function iniciarJuego() {
   document.getElementById("intro").classList.remove("activo");
   document.getElementById("ruleta").classList.add("activo");
-  document.getElementById("musica").play();
 }
 
-// 3️⃣ RULETA Y PLANES
+// 3️⃣ PLANES DE LA RULETA
 const planes = [
   `☕ Café en Toma Café
 📚 Librería Tipos Infames o La Central
@@ -84,6 +83,7 @@ function girar() {
   const ahora = Date.now();
   const ultimoGiro = localStorage.getItem("ultimoGiro");
 
+  // Bloqueo si no ha pasado 1 semana
   if (ultimoGiro && ahora - ultimoGiro < UNA_SEMANA) return;
 
   const ruleta = document.querySelector(".circulo");
