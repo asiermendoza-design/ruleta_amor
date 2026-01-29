@@ -41,12 +41,56 @@ function mostrar(id) {
 
 /* RULETA */
 const planes = [
-  "Cena improvisada en casa 🕯️",
-  "Paseo largo hablando de todo 🌙",
-  "Recrear nuestra primera cita 💕",
-  "Noche sin móviles 📵",
-  "Carta escrita desde el corazón 💌",
-  "Plan secreto ✨"
+  "☕ Café en Toma Café
+
+📚 Librería Tipos Infames o La Central
+
+🎭 Teatro pequeño o microteatro
+
+🍝 Cena italiana en Trattoria Malatesta",
+  "🛍️ Paseo por el centro comercial
+
+🍽️ Comer allí
+
+🍿 Cine con palomitas
+
+🏠 Vuelta tranquila a casa",
+  "🚗 Ruta a un pueblo cercano
+
+🍽️ Comida en restaurante del pueblo
+
+🌿 Paseo / ruta corta
+
+🛋️ Cena en casa, manta y peli",
+  "☕ Desayuno en Federal Café o HanSo Café
+
+🚶‍♀️ Paseo sin rumbo por Barrio de las Letras
+
+🖼️ Museo Thyssen (una sala solo, sin prisas)
+
+🍷 Cena tranquila en La Fisna (vinos y platos para compartir) 📵",
+  "🍳 Brunch en Carmencita Bar
+
+🏙️ Mirador del Círculo de Bellas Artes
+
+📸 Fotos juntos por Gran Vía
+
+🍽️ Cena en Azotea del Círculo o Picalagartos",
+  "🍰 Merienda en La Duquesita
+
+🎨 Taller creativo (cerámica, pintura, velas)
+(Muchos en Malasaña o Lavapiés)
+
+🍔 Cena informal en Goiko / Mad Mad Vegan
+
+🎶 Copa tranquila después"
+  "🚗 Viaje y llegada a la casa rural
+
+🍷 Cena y noche tranquila
+
+🌿 Día de naturaleza y descanso
+
+☕ Desayuno sin prisas y vuelta"
 ];
 
 const UNA_SEMANA = 7 * 24 * 60 * 60 * 1000;
