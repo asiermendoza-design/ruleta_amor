@@ -1,4 +1,4 @@
-/* TEXTO INTRO */
+// 1️⃣ TEXTO INICIAL
 const mensaje = 
 "Esto no es un juego cualquiera.\n\n" +
 "Es una excusa para parar el tiempo,\n" +
@@ -25,21 +25,14 @@ function escribir() {
 
 escribir();
 
-/* TRANSICIONES */
-function irARecuerdos() {
-  mostrar("recuerdos");
+// 2️⃣ INICIAR JUEGO
+function iniciarJuego() {
+  document.getElementById("intro").classList.remove("activo");
+  document.getElementById("ruleta").classList.add("activo");
+  document.getElementById("musica").play();
 }
 
-function irARuleta() {
-  mostrar("ruleta");
-}
-
-function mostrar(id) {
-  document.querySelectorAll("section").forEach(s => s.classList.remove("activo"));
-  document.getElementById(id).classList.add("activo");
-}
-
-/* RULETA */
+// 3️⃣ RULETA Y PLANES
 const planes = [
   `☕ Café en Toma Café
 📚 Librería Tipos Infames o La Central
@@ -59,7 +52,7 @@ const planes = [
   `☕ Desayuno en Federal Café o HanSo Café
 🚶‍♀️ Paseo sin rumbo por Barrio de las Letras
 🖼️ Museo Thyssen (una sala solo, sin prisas)
-🍷 Cena tranquila en La Fisna (vinos y platos para compartir) 📵`,
+🍷 Cena tranquila en La Fisna 📵`,
 
   `🍳 Brunch en Carmencita Bar
 🏙️ Mirador del Círculo de Bellas Artes
@@ -78,24 +71,20 @@ const planes = [
 ☕ Desayuno sin prisas y vuelta`
 ];
 
+// 4️⃣ CONTADOR SEMANAL
 const UNA_SEMANA = 7 * 24 * 60 * 60 * 1000;
 let intervaloContador = null;
 
-/* CUANDO CARGA LA PÁGINA */
 window.onload = () => {
   const ultimoGiro = localStorage.getItem("ultimoGiro");
-  if (ultimoGiro) {
-    iniciarContador(ultimoGiro);
-  }
+  if (ultimoGiro) iniciarContador(ultimoGiro);
 };
 
 function girar() {
   const ahora = Date.now();
   const ultimoGiro = localStorage.getItem("ultimoGiro");
 
-  if (ultimoGiro && ahora - ultimoGiro < UNA_SEMANA) {
-    return; // bloqueado, el contador ya informa
-  }
+  if (ultimoGiro && ahora - ultimoGiro < UNA_SEMANA) return;
 
   const ruleta = document.querySelector(".circulo");
   ruleta.style.transform = "rotate(720deg)";
@@ -113,10 +102,7 @@ function girar() {
 
 function iniciarContador(timestampInicio) {
   const contador = document.getElementById("contador");
-
-  if (intervaloContador) {
-    clearInterval(intervaloContador);
-  }
+  if (intervaloContador) clearInterval(intervaloContador);
 
   intervaloContador = setInterval(() => {
     const ahora = Date.now();
