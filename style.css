@@ -1,0 +1,44 @@
+body {
+  font-family: 'Playfair Display', serif;
+  background: #fdf6f0;
+  text-align: center;
+  color: #5a3e36;
+  padding: 40px;
+}
+
+h1 {
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+
+.sub {
+  color: #a67c73;
+  margin-bottom: 40px;
+}
+
+.ruleta {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  border: 2px solid #d8b4a0;
+  margin: auto;
+  font-size: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 1s ease;
+}
+
+.ruleta:hover {
+  background: #f3e1d3;
+}
+
+.resultado {
+  font-size: 20px;
+  margin-top: 30px;
+}
+
+.diario {
+  margin-top: 60px;
+}
