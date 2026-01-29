@@ -8,18 +8,37 @@
 </head>
 <body>
 
-  <h1>🎡 Nuestra Ruleta</h1>
-  <p class="sub">Un plan nuevo cada semana</p>
-
-  <div class="ruleta" onclick="girar()">♡</div>
-
-  <p class="resultado" id="resultado">Toca el corazón</p>
-
-  <section class="diario">
-    <h2>📖 Nuestro diario</h2>
-    <p>Aquí guardamos nuestros momentos</p>
+  <!-- ACTO 1 -->
+  <section id="intro" class="activo">
+    <p id="texto"></p>
+    <button id="btn-jugar" onclick="irARecuerdos()">¿Jugamos?</button>
   </section>
+
+  <!-- ACTO 2 -->
+  <section id="recuerdos">
+    <video autoplay muted loop>
+      <source src="fondo.mp4" type="video/mp4">
+    </video>
+
+    <div class="fotos">
+      <img src="foto1.jpg">
+      <img src="foto2.jpg">
+      <img src="foto3.jpg">
+    </div>
+
+    <button onclick="irARuleta()">Continuar</button>
+  </section>
+
+  <!-- ACTO 3 -->
+  <section id="ruleta">
+    <h1>🎡 Nuestra Ruleta</h1>
+    <div class="circulo" onclick="girar()">♡</div>
+    <p id="resultado">Pulsa el corazón</p>
+    <p id="contador"></p>
+  </section>
+
 
   <script src="script.js"></script>
 </body>
 </html>
+
